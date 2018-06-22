@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom'
 
 // Mobx
 import { Provider } from 'mobx-react'
-import employeeStore from './stores/EmployeeStore/EmployeeStore'
+import RootStore from './stores/RootStore'
+
 
 // react-router
 import { BrowserRouter } from 'react-router-dom'
@@ -20,7 +21,7 @@ import App from './components/main/App'
 
 
 ReactDOM.render(<BrowserRouter>
-                    <Provider employeeStore={employeeStore}>
+                    <Provider store={new RootStore()}>
                         <MuiThemeProvider theme={Theme}>
                             <CssBaseline/>
                             <App />

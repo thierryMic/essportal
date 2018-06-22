@@ -10,7 +10,7 @@ import Iconer from '../../utils/Iconer'
 import SidebarItem from './SidebarItem'
 import EmpContainer from '../employee/EmpContainer'
 import TimeSheetContainer from '../timesheet/TimeSheetContainer'
-import { Route, withRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 const drawerWidthOpen = '10em'
 const drawerWidthClosed = '3.1em'

@@ -3,6 +3,10 @@ import { decorate, observable } from 'mobx'
 
 class EmployeeStore  {
 
+    constructor(rootStore) {
+        this.rootStore = rootStore
+    }
+
     employees = [{id: 'TM001',
                     firstName: 'Thierry',
                     middleName: 'Arnaud',
@@ -37,6 +41,5 @@ decorate(EmployeeStore, {
     employees: observable
 })
 
-var employeeStore = new EmployeeStore()
 
-export default employeeStore
+export default EmployeeStore

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 
-import MainToolbar from '../maintoolbar/maintoolbar'
+import MainToolbar from '../common/maintoolbar'
 import EmpDetailsComponent from './EmpDetailsComponent'
 import EmpBankComponent from './EmpBankComponent'
 

@@ -24,8 +24,8 @@ const styles = theme => ({
 })
 
 
-const EmpBankComponent = inject("store")(observer(
-class EmpBankComponent extends React.Component {
+const ShiftComponent = inject("store")(observer(
+class ShiftComponent extends React.Component {
 
     handleChange = (e, emp) => {
         emp[e.target.name]= e.target.value
@@ -34,31 +34,25 @@ class EmpBankComponent extends React.Component {
     render () {
 
         const { paper, container, flexColumn } = this.props.classes
-        const { employee } = this.props.store.employeeStore
+        const { employee } = this.props.store.timeStore
 
         return (
             <Paper className={paper}>
             <form className={classNames(container, flexColumn)} noValidate autoComplete="off">
-                <Typography variant='title'>Bank details </Typography>
-
-                <TextField name="bsb" label="BSB" value={employee.bsb}
-                            onChange={(e) => this.handleChange(e, employee)}
-                />
-
-                <TextField name="accountNo" label="Account no" value={employee.accountNo}
-                            onChange={(e) => this.handleChange(e, employee)}
-                />
-
+                <Typography variant='title'>Record a shift</Typography>
+                    <TextField id="date" label="Date" type="date" InputLabelProps={{shrink: true}}/>
+                    <TextField id="start" label="Start" type="time" defaultValue="00:00" InputLabelProps={{shrink: true}}/>
+                    <TextField id="end" label="End" type="time" defaultValue="00:00" InputLabelProps={{shrink: true}}/>
             </form>
             </Paper>
         )
     }
 }))
 
-EmpBankComponent.propTypes = {
+ShiftComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   employee: PropTypes.object
 }
 
 
-export default withStyles(styles)(EmpBankComponent)
+export default withStyles(styles)(ShiftComponent)

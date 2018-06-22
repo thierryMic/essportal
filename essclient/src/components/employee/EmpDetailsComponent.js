@@ -24,7 +24,7 @@ const styles = theme => ({
 })
 
 
-const EmpDetailsComponent = inject("employeeStore")(observer(
+const EmpDetailsComponent = inject("store")(observer(
 class EmpDetailsComponent extends React.Component {
 
     handleChange = (e, emp) => {
@@ -34,7 +34,7 @@ class EmpDetailsComponent extends React.Component {
     render () {
 
         const { paper, container, flexColumn } = this.props.classes
-        const { employee } = this.props.employeeStore
+        const { employee } = this.props.store.employeeStore
 
         return (
             <Paper className={paper}>
