@@ -10,6 +10,7 @@ import Iconer from '../../utils/Iconer'
 import SidebarItem from './SidebarItem'
 import EmpContainer from '../employee/EmpContainer'
 import TimeSheetContainer from '../timesheet/TimeSheetContainer'
+import RosterContainer from '../roster/RosterContainer'
 import { Route } from 'react-router-dom'
 
 const drawerWidthOpen = '10em'
@@ -116,7 +117,7 @@ class App extends React.Component {
                 <div className={classes.toolbar}/>
                 <SidebarItem iconName='lease' text='Employee details' link='empdetails'/>
                 <SidebarItem iconName='lessor' text='Time sheet' link='timesheet'/>
-                <SidebarItem iconName='report' text='Reports'/>
+                <SidebarItem iconName='report' text='Reports' link='roster'/>
             </Drawer>
 
             {/* Content pane */}
@@ -132,6 +133,10 @@ class App extends React.Component {
                     )}
                 />
 
+                <Route exact path='/roster' render={ () => (
+                    <RosterContainer />
+                    )}
+                />
             </main>
         </div>
         );

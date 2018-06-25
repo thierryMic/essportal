@@ -7,12 +7,12 @@ import FormControl from '@material-ui/core/FormControl';
 
 
 export const Selecter = (props) => {
-    const {xid, values, handleChange, val, xClass} = props
+    const {xid, values, handleChange, value, xClass, title} = props
 
     return (
         <FormControl className={xClass}>
-            <InputLabel htmlFor={xid}>Lease type</InputLabel>
-            <Select name={xid} value={val} onChange={handleChange} >
+            <InputLabel htmlFor={xid}>{title}</InputLabel>
+            <Select name={xid} value={value} onChange={handleChange} >
                 {values.map ( (v) => (<MenuItem key={v} value={v}>{v}</MenuItem>))}
             </Select>
         </FormControl>

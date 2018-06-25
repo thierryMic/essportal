@@ -28,7 +28,7 @@ const ShiftComponent = inject("store")(observer(
 class ShiftComponent extends React.Component {
 
     handleChange = (e, emp) => {
-        emp[e.target.name]= e.target.value
+        // emp[e.target.name]= e.target.value
     }
 
     render () {
