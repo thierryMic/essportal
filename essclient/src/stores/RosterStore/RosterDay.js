@@ -9,9 +9,12 @@ class RosterDay  {
     }
 
     newItem() {
-        // debugger
-        console.log('add')
-        this.items.push(new RosterItem())
+        this.items.push(new RosterItem(this))
+    }
+
+    removeItem(item) {
+        console.log(item)
+        this.items.splice(this.items.indexOf(item), 1);
     }
 }
 
@@ -19,6 +22,7 @@ decorate(RosterDay, {
     day: observable,
     items: observable,
     newItem: action,
+    removeItem: action,
 })
 
 export default RosterDay

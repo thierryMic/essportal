@@ -26,10 +26,6 @@ class RosterDayComponent extends React.Component {
         })
     }
 
-    addItem = (rosterDay) => {
-        // debugger
-        rosterDay.addItem()
-    }
 
   render() {
     const { classes, rosterDay } = this.props;
@@ -39,9 +35,11 @@ class RosterDayComponent extends React.Component {
         <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
             <ExpansionPanelSummary expandIcon={<Iconer name='down' color='primary'/>}>
                 <Typography variant='subheading'>{rosterDay.day.format('dddd, MMMM Do YYYY')}</Typography>
+
             </ExpansionPanelSummary>
 
-            <ExpansionPanelDetails>
+            {/* <ExpansionPanelDetails className={classes.details}> */}
+
                 <Button onClick={() => rosterDay.newItem()}>
                     <Iconer name='plus' color='primary'/>
                 </Button>
@@ -49,7 +47,7 @@ class RosterDayComponent extends React.Component {
                 {rosterDay.items.map( (i) => (
                     <RosterItemComponent key={i.date} item={i} />
                 ))}
-            </ExpansionPanelDetails>
+            {/* </ExpansionPanelDetails> */}
 
         </ExpansionPanel>
     );

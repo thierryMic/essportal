@@ -43,17 +43,17 @@ const remove = e => {
 
 const RosterItemComponent= inject('store')(observer((props) => {
     const { root, button,} = props.classes
-    const { item} = props
+    const { item } = props
 
     return (
-        <Paper style={{height:'3em', padding:'.5em 1em', display:'flex'}}>
+        <Paper style={{height:'3em', padding:'.5em 1em', display:'flex', width:'100%'}}>
             <FormControl className={root}>
                 <Select name={'x'} value={item.employeeId} onChange={handleChange} >
                     {values.map ( (v) => (<MenuItem key={v} value={v}>{v}</MenuItem>))}
                 </Select>
             </FormControl>
 
-            <IconButton onClick={e => remove(e)} className={button}>x</IconButton>
+            <IconButton onClick={() => item.delete()} className={button}>x</IconButton>
             <Range min={0} max={24} defaultValue={[0,1]} step={0.25} marks={marks} allowCross={false} />
         </Paper>
         )
