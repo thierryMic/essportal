@@ -1,13 +1,19 @@
-import { decorate, observable, action } from 'mobx'
+import { decorate, observable, action, computed } from 'mobx'
+import Employee from '../Employee';
 
 class RosterItem  {
 
     constructor(parent) {
+        this.id = Date.now()
         this.parent = parent
-        this.employeeId = ''
+        this.employee = new Employee()
         this.date = ''
         this.start = ''
         this.finish = ''
+    }
+
+    setEmployee(e) {
+        this.employee = e
     }
 
     delete () {
@@ -16,7 +22,9 @@ class RosterItem  {
 }
 
 decorate(RosterItem, {
+    employee: observable,
     delete: action,
+
 })
 
 

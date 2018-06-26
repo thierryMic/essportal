@@ -13,7 +13,6 @@ class RosterDay  {
     }
 
     removeItem(item) {
-        console.log(item)
         this.items.splice(this.items.indexOf(item), 1);
     }
 }

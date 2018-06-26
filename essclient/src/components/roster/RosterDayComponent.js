@@ -45,7 +45,7 @@ class RosterDayComponent extends React.Component {
                 </Button>
 
                 {rosterDay.items.map( (i) => (
-                    <RosterItemComponent key={i.date} item={i} />
+                    <RosterItemComponent key={i.id} item={i} />
                 ))}
             {/* </ExpansionPanelDetails> */}
 

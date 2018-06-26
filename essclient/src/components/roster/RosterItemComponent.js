@@ -8,12 +8,14 @@ import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 import IconButton from '@material-ui/core/IconButton';
 import Iconer from '../../utils/Iconer'
+import InputLabel from '@material-ui/core/InputLabel'
 
 import "rc-slider/assets/index.css";
 import Typography from '@material-ui/core/Typography';
 
 const styles = (theme) => ({
     root:{
+        display:'flex',
         width: '10em',
     },
     button: {
@@ -22,6 +24,12 @@ const styles = (theme) => ({
         width: '1em',
         marginRight: '1em'
     },
+    slider: {
+        height:'3em',
+        padding:'0.25em 1.5em',
+        display:'flex',
+        width:'100%'
+    }
 })
 
 const marks = {
@@ -31,25 +39,21 @@ const marks = {
     18 :'18:00', 19 :'19:00', 20 :'20:00', 21 :'21:00', 22 :'22:00', 23 :'23:00', 23.99: '23:59'
 };
 
-const values = ['john', 'julie', 'thiery']
 
-const handleChange = (e) => {
-    e.target.value = e.target.value
-}
-
-const remove = e => {
-    console.log(e.value)
-}
 
 const RosterItemComponent= inject('store')(observer((props) => {
-    const { root, button,} = props.classes
+    const { root, button, slider} = props.classes
     const { item } = props
+    const { employees } = props.store.employeeStore
+    const { employeeStore } = props.store
 
     return (
-        <Paper style={{height:'3em', padding:'.5em 1em', display:'flex', width:'100%'}}>
+        <Paper className={slider}>
             <FormControl className={root}>
-                <Select name={'x'} value={item.employeeId} onChange={handleChange} >
-                    {values.map ( (v) => (<MenuItem key={v} value={v}>{v}</MenuItem>))}
+                <Select value={item.employee.id}
+                        onChange={(e)=>item.setEmployee(employeeStore.getEmployee(e.target.value))}
+                >
+                    {employees.map ( (e) => (<MenuItem key={e.id} value={e.id}>{e.firstName}</MenuItem>))}
                 </Select>
             </FormControl>
 
