@@ -2,7 +2,6 @@ import React from 'react';
 import RosterDayComponent from './RosterDayComponent'
 import Grid from '@material-ui/core/Grid'
 import { observer, inject } from 'mobx-react'
-import moment from 'moment'
 
 
 const RosterComponent = inject('store')(observer((props) => {

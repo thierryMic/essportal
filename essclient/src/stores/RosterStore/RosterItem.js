@@ -1,4 +1,4 @@
-import { decorate, observable, action, computed } from 'mobx'
+import { decorate, observable, action } from 'mobx'
 import Employee from '../Employee';
 
 class RosterItem  {

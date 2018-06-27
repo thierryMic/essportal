@@ -3,7 +3,6 @@ import Roster from './Roster';
 
 class RosterStore  {
 
-
     constructor(rootStore) {
         this.rootStore = rootStore
         this.rosters=[]
@@ -12,7 +11,7 @@ class RosterStore  {
 
 
     createRoster() {
-        var roster = new Roster(this)
+        const roster = new Roster(this)
         this.rosters.push(roster)
         this.roster = roster
     }

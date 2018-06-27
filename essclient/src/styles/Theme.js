@@ -16,10 +16,14 @@ const Theme = createMuiTheme({
     overrides: {
         MuiFormControl: {
             root: {
-                marginBottom: '1em',
-                padding: 0
+                margin: '.5em 0',
             },
         },
+    },
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '1em'
     }
 })
 

@@ -3,9 +3,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 // Mobx
+import { configure } from 'mobx';
 import { Provider } from 'mobx-react'
 import RootStore from './stores/RootStore'
-
 
 // react-router
 import { BrowserRouter } from 'react-router-dom'
@@ -15,10 +15,10 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import Theme from './styles/Theme'
 
-// application
+// components
 import App from './components/main/App'
 
-
+// configure({ enforceActions: "strict" })
 
 ReactDOM.render(<BrowserRouter>
                     <Provider store={new RootStore()}>

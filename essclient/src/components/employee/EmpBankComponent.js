@@ -1,64 +1,51 @@
+//react
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
+
+//mobx
+import { observer, inject } from 'mobx-react'
+
+//material-ui
 import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
-import classNames from 'classnames'
-import { observer, inject } from 'mobx-react'
+import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core';
 
-
-
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing.unit * 2,
-        color: theme.palette.text.secondary,
-    },
-    flexColumn:{
-        display: 'flex',
-        flexDirection: 'column',
+const styles = (theme) => ({
+    form:{
+        ...theme.form
     },
 })
 
-
-const EmpBankComponent = inject("store")(observer(
-class EmpBankComponent extends React.Component {
-
-    handleChange = (e, emp) => {
+const handleChange = (e, emp) => {
         emp[e.target.name]= e.target.value
     }
 
-    render () {
+/**
+* @description renders a form with bank details fields
+*/
+const EmpBankComponent = inject('store')(observer((props) => {
+    const { form } = props.classes
+    const { employee } = props.store.employeeStore
 
-        const { paper, container, flexColumn } = this.props.classes
-        const { employee } = this.props.store.employeeStore
+    return (
+        <Paper className={form}>
+            <Typography variant='title'>Bank details </Typography>
 
-        return (
-            <Paper className={paper}>
-            <form className={classNames(container, flexColumn)} noValidate autoComplete="off">
-                <Typography variant='title'>Bank details </Typography>
+            <TextField name="bsb" label="BSB" value={employee.bsb}
+                        onChange={(e) => handleChange(e, employee)}
+            />
 
-                <TextField name="bsb" label="BSB" value={employee.bsb}
-                            onChange={(e) => this.handleChange(e, employee)}
-                />
-
-                <TextField name="accountNo" label="Account no" value={employee.accountNo}
-                            onChange={(e) => this.handleChange(e, employee)}
-                />
-
-            </form>
-            </Paper>
-        )
-    }
+            <TextField name="accountNo" label="Account no" value={employee.accountNo}
+                        onChange={(e) => handleChange(e, employee)}
+            />
+        </Paper>
+    )
 }))
 
 EmpBankComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   employee: PropTypes.object
 }
-
 
 export default withStyles(styles)(EmpBankComponent)

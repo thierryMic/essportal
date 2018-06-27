@@ -1,33 +1,33 @@
+// react
 import React from 'react'
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
-import Toolbar from '@material-ui/core/Toolbar';
-import { withStyles } from '@material-ui/core/styles'
 
+//material ui
+import Button from '@material-ui/core/Button'
+import Toolbar from '@material-ui/core/Toolbar'
+
+//components
 import Iconer from '../../utils/Iconer'
 
-
-
-const styles = theme => ({
-
-})
-
-
+/**
+* @description renders MainToolbar component
+* @description the toolbar has 3 icons/actions that are common to most parts of the application
+* @description new, save and delete
+*/
 const MainToolbar = (props) => {
-        const {button} = props.classes
-        return (
-                <Toolbar disableGutters>
-                    <Button size='small' className={button} onClick={props.new}>
-                        <Iconer name='plus' color='primary'/>
-                    </Button>
-                    <Button size='small' className={button} >
-                        <Iconer name='save' color='primary'/>
-                    </Button>
-                    <Button size='small' className={button} >
-                        <Iconer name='clear' color='primary'/>
-                    </Button>
-                </Toolbar>
-        )
-    }
+    return (
+        <Toolbar disableGutters>
+            <Button size='small' onClick={props.new}> <Iconer name='plus' color='primary'/></Button>
+            <Button size='small' ><Iconer name='save' color='primary'/></Button>
+            <Button size='small' ><Iconer name='clear' color='primary'/></Button>
+        </Toolbar>
+    )
+}
 
-export default withStyles(styles)(MainToolbar)
+MainToolbar.propTypes = {
+    new: PropTypes.func,
+    save: PropTypes.func,
+    delete: PropTypes.func,
+}
+
+export default MainToolbar

@@ -1,19 +1,21 @@
+//react and mobx
 import React from 'react';
+import { observer, inject } from 'mobx-react'
+
+//material-ui
 import { withStyles } from '@material-ui/core/styles'
-import MainToolbar from '../common/maintoolbar'
-import RosterComponent from './RosterComponent'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { observer, inject } from 'mobx-react'
 
+//components
+import MainToolbar from '../common/maintoolbar'
+import RosterDayComponent from './RosterDayComponent'
 
 const styles = () => ({
     root: {
         width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
     },
     rost: {
         marginBottom: '.5em',
@@ -24,45 +26,42 @@ const styles = () => ({
     datePicker: {
         margin: '0 1em'
     },
-
   })
 
-const RosterContainer = inject("store")(observer(
-class RosterContainer extends React.Component {
+/**
+* @description renders a RosterContainer component
+*/
+const RosterContainer= inject('store')(observer((props) => {
+    const {root, rost, datePicker} = props.classes
+    const { roster } = props.store.rosterStore
 
-    newRoster = (e) => {
-        this.props.store.rosterStore.createRoster
-    }
+    return (
+        <div className={root}>
+            {/* toolbar */}
+            <MainToolbar new={props.store.rosterStore.createRoster()} />
 
-    handleChange = (e) => {
-        this.props.store.rosterStore.roster.changeStartDate(e.target.value)
-    }
+            {/* Title bar */}
+            <Paper className={rost}>
+                <Typography variant='title'>Roster for the week starting:</Typography>
+                <TextField
+                    id="date"
+                    type="date"
+                    margin='dense'
+                    className={datePicker}
+                    InputLabelProps={{shrink: true,}}
+                    value={roster.startDate}
+                    onChange={(e) => roster.changeStartDate(e.target.value)}
+                />
+            </Paper>
 
-    render () {
-        const {root, rost, datePicker} = this.props.classes
-        const { roster} = this.props.store.rosterStore
-
-        return (
-            <div className={root}>
-                <MainToolbar new={this.newRoster} />
-                <Paper className={rost}>
-                    <Typography variant='title'>Roster for the week starting:</Typography>
-                    <TextField
-                        id="date"
-                        type="date"
-                        margin='dense'
-                        className={datePicker}
-                        InputLabelProps={{shrink: true,}}
-                        value={roster.startDate}
-                        onChange={(e) => this.handleChange(e)}
-                    />
-                </Paper>
-                <Grid container spacing={24}>
-                    <RosterComponent />
+            {/* Rosters expansion panels each panel represent a day or RosterItem*/}
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    {roster.days.map (d => (<RosterDayComponent key={d.day} rosterDay={d}/>))}
                 </Grid>
-            </div>
-        )
-    }
+            </Grid>
+        </div>
+    )
 }))
 
 export default withStyles(styles)(RosterContainer)

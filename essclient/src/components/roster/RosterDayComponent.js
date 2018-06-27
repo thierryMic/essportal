@@ -1,61 +1,68 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+// react and mobx
+import React from 'react'
+import { observer, inject } from 'mobx-react'
+import PropTypes from 'prop-types'
+
+//material-ui
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+
+//components
 import Iconer from '../../utils/Iconer'
 import RosterItemComponent from './RosterItemComponent'
-import { observer, inject } from 'mobx-react'
-import { ExpansionPanelDetails } from '@material-ui/core';
 
-const styles = theme => ({
 
-});
-
+/**
+* Class representing a RosterDay
+* @extends Component
+*/
 const RosterDayComponent = inject("store")(observer(
 class RosterDayComponent extends React.Component {
     state = {
         expanded: null,
-    };
+    }
 
+    /**
+    * @description open or close expansion panel
+    */
     handleChange = panel => (event, expanded) => {
         this.setState({
             expanded: expanded ? panel : false,
         })
     }
 
+    /**
+    * @description renders a RosterDay component
+    */
+    render() {
+        const { rosterDay } = this.props
+        const { expanded } = this.state
 
-  render() {
-    const { classes, rosterDay } = this.props;
-    const { expanded } = this.state;
+        return (
+            <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
 
-    return (
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-            <ExpansionPanelSummary expandIcon={<Iconer name='down' color='primary'/>}>
-                <Typography variant='subheading'>{rosterDay.day.format('dddd, MMMM Do YYYY')}</Typography>
+                {/* Title for roster time - date of the roster item */}
+                <ExpansionPanelSummary expandIcon={<Iconer name='down' color='primary'/>}>
+                    <Typography variant='subheading'>{rosterDay.day.format('dddd, MMMM Do YYYY')}</Typography>
+                </ExpansionPanelSummary>
 
-            </ExpansionPanelSummary>
+                {/* Button to add roster item */}
+                <Button onClick={() => rosterDay.newItem()}><Iconer name='plus' color='primary'/></Button>
 
-            {/* <ExpansionPanelDetails className={classes.details}> */}
-
-                <Button onClick={() => rosterDay.newItem()}>
-                    <Iconer name='plus' color='primary'/>
-                </Button>
-
+                {/* List of roster items for the current day */}
                 {rosterDay.items.map( (i) => (
                     <RosterItemComponent key={i.id} item={i} />
                 ))}
-            {/* </ExpansionPanelDetails> */}
 
-        </ExpansionPanel>
-    );
-  }
+            </ExpansionPanel>
+        )
+    }
 }))
 
 RosterDayComponent.propTypes = {
-  classes: PropTypes.object.isRequired,
+    rosterDay: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(RosterDayComponent);
+export default RosterDayComponent
