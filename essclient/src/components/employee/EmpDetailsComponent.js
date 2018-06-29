@@ -1,8 +1,6 @@
-//react
+//react and mobx
 import React from 'react'
 import PropTypes from 'prop-types'
-
-//mobx
 import { observer, inject } from 'mobx-react'
 
 //material-ui

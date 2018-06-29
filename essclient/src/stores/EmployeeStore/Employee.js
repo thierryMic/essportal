@@ -1,9 +1,9 @@
-import { decorate, observable, action, computed } from 'mobx'
+import { decorate, observable, computed } from 'mobx'
 
 class Employee  {
 
     constructor() {
-        this.id = 'TM001'
+        this.id = '<New>'
         this.firstName = ''
         this.middleName = ''
         this.lastName = ''
@@ -21,9 +21,16 @@ class Employee  {
 }
 
 decorate(Employee, {
-    name: computed
+    firstName: observable,
+    middleName: observable,
+    lastName: observable,
+    address: observable,
+    email: observable,
+    phone: observable,
+    bsb: observable,
+    accountNo: observable,
+    name: computed,
 })
-
 
 
 export default Employee

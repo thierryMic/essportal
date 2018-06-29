@@ -38,7 +38,7 @@ const RosterContainer= inject('store')(observer((props) => {
     return (
         <div className={root}>
             {/* toolbar */}
-            <MainToolbar new={props.store.rosterStore.createRoster()} />
+            <MainToolbar new={(e) => props.store.rosterStore.createRoster()} />
 
             {/* Title bar */}
             <Paper className={rost}>

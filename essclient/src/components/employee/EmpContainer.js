@@ -1,5 +1,7 @@
 //react
 import React from 'react'
+import { observer, inject } from 'mobx-react'
+
 
 //material ui
 import Grid from '@material-ui/core/Grid'
@@ -12,15 +14,24 @@ import EmpBankComponent from './EmpBankComponent'
 /**
 * @description renders the main grid and components that make up the employee menu
 */
-const EmpContainer = () => {
+const EmpContainer =  inject('store')(observer((props) => {
+    const { employeeStore } = props.store
     return (
         <Grid container spacing={8}  >
-            <Grid item xs={12} ><MainToolbar/></Grid>
+            <Grid item xs={12} >
+                <MainToolbar
+                    new={(e) => employeeStore.newE()}
+                    save={(e) => employeeStore.save()}
+                    prev={(e) => employeeStore.prev()}
+                    next={(e) => employeeStore.next()}
+                />
+            </Grid>
+
             <Grid item xs={12} sm={6} lg={4}><EmpDetailsComponent /></Grid>
             <Grid item xs={12} sm={6} lg={4}><EmpBankComponent /></Grid>
         </Grid>
     )
-}
+}))
 
 export default EmpContainer
 

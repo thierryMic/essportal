@@ -1,5 +1,5 @@
 import { decorate, observable, action } from 'mobx'
-import Employee from '../Employee';
+import Employee from '../EmployeeStore/Employee';
 
 class RosterItem  {
 

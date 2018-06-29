@@ -1,4 +1,4 @@
-import EmployeeStore from './EmployeeStore'
+import EmployeeStore from './EmployeeStore/EmployeeStore'
 import TimeStore from './TimeStore'
 import RosterStore from './RosterStore/RosterStore'
 

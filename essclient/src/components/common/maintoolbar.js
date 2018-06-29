@@ -18,8 +18,11 @@ const MainToolbar = (props) => {
     return (
         <Toolbar disableGutters>
             <Button size='small' onClick={props.new}> <Iconer name='plus' color='primary'/></Button>
-            <Button size='small' ><Iconer name='save' color='primary'/></Button>
+            <Button size='small' onClick={props.save}><Iconer name='save' color='primary'/></Button>
             <Button size='small' ><Iconer name='clear' color='primary'/></Button>
+            <Button size='small' onClick={props.prev}><Iconer name='prev' color='primary'/></Button>
+            <Button size='small' onClick={props.next}><Iconer name='next' color='primary'/></Button>
+            <Button size='small' ><Iconer name='search' color='primary'/></Button>
         </Toolbar>
     )
 }
