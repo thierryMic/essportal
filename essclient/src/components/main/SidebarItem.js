@@ -18,7 +18,7 @@ const SidebarItem = (props) => {
     return (
         <Link to={`/${props.link}`}>
             <List disablePadding>
-                <ListItem button divider className={classes.listItem} >
+                <ListItem button divider className={classes.listItem}>
                     <IconButton>
                         <Iconer name={iconName} color='primary'/>
                     </IconButton>

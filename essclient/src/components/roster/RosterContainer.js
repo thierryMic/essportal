@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 
 //components
 import MainToolbar from '../common/maintoolbar'
-import RosterDayComponent from './RosterDayComponent'
+import RosterComponent from './RosterComponent'
 
 const styles = () => ({
     root: {
@@ -56,9 +56,7 @@ const RosterContainer= inject('store')(observer((props) => {
 
             {/* Rosters expansion panels each panel represent a day or RosterItem*/}
             <Grid container spacing={24}>
-                <Grid item xs={12}>
-                    {roster.days.map (d => (<RosterDayComponent key={d.day} rosterDay={d}/>))}
-                </Grid>
+                <RosterComponent roster={roster}/>
             </Grid>
         </div>
     )

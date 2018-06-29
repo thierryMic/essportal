@@ -4,9 +4,6 @@ import { observer, inject } from 'mobx-react'
 
 //material-ui
 import Paper from '@material-ui/core/Paper'
-import Select from '@material-ui/core/Select'
-import FormControl from '@material-ui/core/FormControl'
-import MenuItem from '@material-ui/core/MenuItem'
 import IconButton from '@material-ui/core/IconButton'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -14,12 +11,10 @@ import { withStyles } from '@material-ui/core/styles'
 import {Range}  from 'rc-slider'
 import "rc-slider/assets/index.css"
 
+//components
+import EmployeeComboComponent from './EmployeeComboComponent'
+
 const styles = () => ({
-    root:{
-        display:'flex',
-        width: '10em',
-        margin: 0,
-    },
     button: {
         height: '2em',
         fontSize: '1em',
@@ -48,24 +43,19 @@ const marks = {
 * @description this is usually a child component of a RosterDayComponent
 */
 const RosterItemComponent= inject('store')(observer((props) => {
-    const { root, button, slider} = props.classes
+    const { button, slider} = props.classes
     const { item } = props
-    const { employees } = props.store.employeeStore
     const { getEmployee } = props.store.employeeStore
 
     return (
         <Paper className={slider}>
-            {/* Dropdown menu to select an employee for the roster item */}
-            <FormControl className={root}>
-                <Select value={item.employee.id} onChange={(e)=>item.setEmployee(getEmployee(e.target.value))}>
-                    {employees.map ( (e) => (<MenuItem key={e.id} value={e.id}>{e.firstName}</MenuItem>))}
-                </Select>
-            </FormControl>
+            {/* List of employees that can be assigned to this roster item */}
+            <EmployeeComboComponent item={item} handleChange={(e)=>item.setEmployee(getEmployee(e.target.value))} />
 
             {/* button to delete current roster item */}
             <IconButton onClick={() => item.delete()} className={button}>x</IconButton>
 
-            {/* slider */}
+            {/* slider to set start and finish times*/}
             <Range min={0} max={24} defaultValue={[0,1]} step={0.25} marks={marks} allowCross={false} />
         </Paper>
     )
