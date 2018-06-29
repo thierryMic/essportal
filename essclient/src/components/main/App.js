@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer, inject } from 'mobx-react'
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -11,7 +12,7 @@ import SidebarItem from './SidebarItem'
 import EmpContainer from '../employee/EmpContainer'
 import TimeSheetContainer from '../timesheet/TimeSheetContainer'
 import RosterContainer from '../roster/RosterContainer'
-import { Route } from 'react-router-dom'
+
 
 const drawerWidthOpen = '10em'
 const drawerWidthClosed = '3.1em'
@@ -78,7 +79,18 @@ const styles = (theme, props) => ({
 
 });
 
+const App = inject("store")(observer(
 class App extends React.Component {
+
+    componentDidMount() {
+        console.log('mounting')
+        this.props.store.uiStore.setView(window.location.pathname, true)
+        window.onpopstate = () => {
+            this.props.store.uiStore.setView(window.location.pathname, true)
+        }
+    }
+
+
     state = {open: false};
 
     handleDrawerOpen = () => {
@@ -88,6 +100,14 @@ class App extends React.Component {
     handleDrawerClose = () => {
         this.setState({open: false});
     };
+
+    activeView = () => {
+        switch (this.props.store.uiStore.activeViewId) {
+            case '/': return <EmpContainer />
+            case '/employee': return <EmpContainer />
+            case '/roster': return <RosterContainer />
+        }
+    }
 
     render() {
         const { classes } = this.props
@@ -115,34 +135,19 @@ class App extends React.Component {
               open={this.state.open}
             >
                 <div className={classes.toolbar}/>
-                <SidebarItem iconName='lease' text='Employee details' link='empdetails'/>
+                <SidebarItem iconName='lease' text='Employee details' link='/employee'/>
                 <SidebarItem iconName='lessor' text='Time sheet' link='timesheet'/>
-                <SidebarItem iconName='report' text='Reports' link='roster'/>
+                <SidebarItem iconName='report' text='Reports' link='/roster'/>
             </Drawer>
 
             {/* Content pane */}
             <main className={classNames(classes.content, this.state.open && classes.contentOpen)}>
-
-                <Route exact path='/empdetails' render={ () => (
-                    <EmpContainer />
-                    )}
-                />
-
-                <Route exact path='/timesheet' render={ () => (
-                    <TimeSheetContainer />
-                    )}
-                />
-
-                <Route exact path='/roster' render={ () => (
-                    <RosterContainer />
-                    )}
-                />
-            </main>
+                {this.activeView()}
+             </main>
         </div>
         );
     }
-}
-
+}))
 
 
 export default withStyles(styles, { withTheme: true })(App);

@@ -8,7 +8,7 @@ import { Provider } from 'mobx-react'
 import RootStore from './stores/RootStore'
 
 // react-router
-import { BrowserRouter } from 'react-router-dom'
+// import { BrowserRouter } from 'react-router-dom'
 
 // Material-ui
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -17,17 +17,17 @@ import Theme from './styles/Theme'
 
 // components
 import App from './components/main/App'
-
 // configure({ enforceActions: "strict" })
 
-ReactDOM.render(<BrowserRouter>
-                    <Provider store={new RootStore()}>
-                        <MuiThemeProvider theme={Theme}>
-                            <CssBaseline/>
-                            <App />
-                        </MuiThemeProvider>
-                    </Provider>
-                </BrowserRouter>,
+
+
+
+ReactDOM.render(<Provider store={new RootStore()}>
+                    <MuiThemeProvider theme={Theme}>
+                        <CssBaseline/>
+                        <App />
+                    </MuiThemeProvider>
+                </Provider>,
                 document.getElementById('root')
             )
 
