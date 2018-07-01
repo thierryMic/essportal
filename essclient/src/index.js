@@ -17,8 +17,10 @@ import Theme from './styles/Theme'
 
 // components
 import App from './components/main/App'
-// configure({ enforceActions: "strict" })
 
+//config
+// configure({ enforceActions: "strict" })
+require('dotenv').config()
 
 
 

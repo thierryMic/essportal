@@ -1,5 +1,4 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react'
+import React from 'react'
 
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -9,19 +8,18 @@ import { ListItem } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Iconer from '../../utils/Iconer'
 
-const styles = theme => ({
+const styles = () => ({
     listItem:{
         padding: 0,
     }
   })
 
-const SidebarItem = inject('store')(observer((props) => {
-    const { iconName, text, classes, link } = props
-    const { uiStore } = props.store
+const SidebarItem = props => {
+    const { iconName, text, classes, handler } = props
 
     return (
         <List disablePadding>
-            <ListItem button divider className={classes.listItem} onClick={()=> uiStore.setView(link)}>
+            <ListItem button divider className={classes.listItem} onClick={handler}>
                 <IconButton>
                     <Iconer name={iconName} color='primary'/>
                 </IconButton>
@@ -29,7 +27,7 @@ const SidebarItem = inject('store')(observer((props) => {
             </ListItem>
         </List>
     )
-}))
+}
 
 
 

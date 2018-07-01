@@ -1,8 +1,12 @@
-import { decorate, computed, observable} from 'mobx'
+import { decorate, action, observable} from 'mobx'
 
 class UIStore {
 
-    activeViewId = null
+    constructor(rootStore) {
+        this.activeViewId = null
+        this.rootStore = rootStore
+    }
+
 
     setView (link, nav=false) {
         if (nav || link !== window.location.pathname) {
@@ -10,11 +14,22 @@ class UIStore {
             nav !==true && window.history.pushState(null, null, link)
         }
     }
+
+    showEmployee() {
+        this.setView ('/employee')
+        this.rootStore.employeeStore.fetchEmployees()
+    }
+
+    showRoster() {
+        this.setView ('/roster')
+    }
 }
 
 
 decorate (UIStore, {
     activeViewId: observable,
+    showEmployee: action,
+    showRoster: action,
 })
 
 export default UIStore

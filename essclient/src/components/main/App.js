@@ -83,7 +83,6 @@ const App = inject("store")(observer(
 class App extends React.Component {
 
     componentDidMount() {
-        console.log('mounting')
         this.props.store.uiStore.setView(window.location.pathname, true)
         window.onpopstate = () => {
             this.props.store.uiStore.setView(window.location.pathname, true)
@@ -111,6 +110,7 @@ class App extends React.Component {
 
     render() {
         const { classes } = this.props
+        const { uiStore } = this.props.store
 
         return (
         <div className={classes.root}>
@@ -135,9 +135,9 @@ class App extends React.Component {
               open={this.state.open}
             >
                 <div className={classes.toolbar}/>
-                <SidebarItem iconName='lease' text='Employee details' link='/employee'/>
-                <SidebarItem iconName='lessor' text='Time sheet' link='timesheet'/>
-                <SidebarItem iconName='report' text='Reports' link='/roster'/>
+                <SidebarItem iconName='lease' text='Employee details' handler={()=>uiStore.showEmployee()} />
+                {/* // <SidebarItem iconName='lessor' text='Time sheet' link='timesheet'/> */}
+                <SidebarItem iconName='report' text='Reports' handler={()=>uiStore.showRoster()} />
             </Drawer>
 
             {/* Content pane */}
