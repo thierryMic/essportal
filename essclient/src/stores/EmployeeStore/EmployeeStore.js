@@ -1,6 +1,6 @@
 import { decorate, observable, computed, action } from 'mobx'
 import Employee from './Employee'
-import { apiFetchEmployees } from '../Api'
+import { apiFetchEmployees, apiSaveEmployee } from '../Api'
 
 class EmployeeStore  {
 
@@ -20,12 +20,12 @@ class EmployeeStore  {
     }
 
     save () {
-        if (this.employee.id === '<New>') {
-            this.employee.id = Date.now()
-            this.employees.push(this.employee)
-        } else {
-            Object.assign(this.employees[this.index], this.employee)
-        }
+        apiSaveEmployee(this.employee)
+            .then((e) => {
+                console.log(e)
+                this.employee.id = e.id
+
+            })
     }
 
     next () {
@@ -43,8 +43,7 @@ class EmployeeStore  {
     }
 
     fetchEmployees () {
-        apiFetchEmployees()
-        .then(e => (e && (this.employees = e.data)))
+        apiFetchEmployees().then(e => (e && (this.employees = e.data)))
     }
 }
 

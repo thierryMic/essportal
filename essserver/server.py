@@ -1,18 +1,11 @@
-from flask import Flask, jsonify
-# from flask import session, flash, make_response
+from flask import Flask, jsonify, request
 from flask_cors import CORS
-# from flask_seasurf import SeaSurf
-# from flask.ext.seasurf import SeaSurf
+from db.employee import Employee
+import yaml
 
-
-# import memcache
-
-
-# mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 app = Flask(__name__)
-# csrf = SeaSurf(app)
-# app.config['UPLOAD_FOLDER'] = '/var/www/itemcatalog/static/img'
-# app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+cors = CORS(app, resources={r'/API/*': {"origins": "*"}})
+
 employees = {'data':[{
                 'id': 'TM001',
                 'firstName': 'Thierry',
@@ -46,13 +39,27 @@ employees = {'data':[{
                 }]
             }
 
-@app.route('/JSON/employees/')
+
+def authed(userId=None):
+    return True
+
+
+
+@app.route('/API/employees/')
 def getEmployees():
     return jsonify(employees)
 
 
+@app.route('/API/saveemployee/', methods=['POST'])
+def saveEmployee():
+    if request.method == 'POST':
+        if authed():
+            employee = Employee.get(request.json)
+            employee.save(request.json)
+            return jsonify(employee.serialize)
+
+
 def startServer():
-    CORS(app)
     app.secret_key = 'super_secret_key'
     app.debug = True
     app.run(host='0.0.0.0', port=8080)
