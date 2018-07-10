@@ -15,21 +15,29 @@ class Employee(ndb.Model):
     @property
     def serialize(self):
        """Return object data in easily serializeable format"""
-       return {
-            'id': self.key.id(),
-       		'firstName': self.firstName,
-            'middleName': self.middleName,
-            'lastName': self.lastName,
-            'email': self.email,
-            'address': self.address,
-            'phone': self.phone,
-            'bsb': self.bsb,
-            'accountNo': self.accountNo,
-       }
+       e = self.to_dict()
+       e['id'] = self.key.id()
+       return e
 
+    @staticmethod
+    def save(details):
 
-    def save(self, details):
-        self.put()
+        if details['id'] == '<New>':
+            eId = details['firstName'][0].upper() + details['lastName'][0].upper() + '001'
+            e = Employee(key = ndb.Key(Employee, eId))
+        else:
+            e = Employee.get_by_id(details['id'])
+
+        e.firstName = details['firstName']
+        e.lastName = details['lastName']
+        e.email = details['email']
+        e.address = details['address']
+        e.phone = details['phone']
+        e.bsb = details['bsb']
+        e.accountNo = details['accountNo']
+        e.put()
+
+        return e
 
     @staticmethod
     def get (details):
