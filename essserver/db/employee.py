@@ -5,12 +5,18 @@ class Employee(ndb.Model):
     firstName = ndb.StringProperty()
     middleName = ndb.StringProperty()
     lastName = ndb.StringProperty()
+    dob = ndb.StringProperty()
     email = ndb.StringProperty()
     address = ndb.StringProperty()
     phone = ndb.StringProperty()
+    kinName = ndb.StringProperty()
+    kinRelation = ndb.StringProperty()
+    kinPhone = ndb.StringProperty()
+    superFund=ndb.StringProperty()
+    superAbn = ndb.StringProperty()
+    superNo = ndb.StringProperty()
     bsb = ndb.StringProperty()
     accountNo = ndb.StringProperty()
-
 
     @property
     def serialize(self):
@@ -28,13 +34,23 @@ class Employee(ndb.Model):
         else:
             e = Employee.get_by_id(details['id'])
 
+
         e.firstName = details['firstName']
+        e.middleName = details['middleName']
         e.lastName = details['lastName']
+        e.dob = details['dob']
         e.email = details['email']
         e.address = details['address']
         e.phone = details['phone']
+        e.kinName = details['kinName']
+        e.kinRelation = details['kinRelation']
+        e.kinPhone = details['kinPhone']
+        e.superFund=details['superFund']
+        e.superAbn = details['superAbn']
+        e.superNo = details['superNo']
         e.bsb = details['bsb']
         e.accountNo = details['accountNo']
+
         e.put()
 
         return e

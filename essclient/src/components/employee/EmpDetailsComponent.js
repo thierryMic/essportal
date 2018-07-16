@@ -40,6 +40,10 @@ const EmpDetailsComponent = inject('store')(observer((props) => {
                        onChange={(e) => handleChange(e, employee)}
             />
 
+            <TextField name="dob" label="Date of birth" value={employee.dob} type="date"
+                       InputLabelProps={{shrink: true,}} onChange={(e) => handleChange(e, employee)}
+            />
+
             <TextField name="address" label="Address" value={employee.address}
                        onChange={(e) => handleChange(e, employee)}
             />

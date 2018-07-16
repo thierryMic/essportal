@@ -23,7 +23,7 @@ const Theme = createMuiTheme({
     form: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '1em'
+        padding: '1em',
     }
 })
 

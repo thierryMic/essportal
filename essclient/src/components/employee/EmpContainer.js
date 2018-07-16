@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid'
 import MainToolbar from '../common/maintoolbar'
 import EmpDetailsComponent from './EmpDetailsComponent'
 import EmpBankComponent from './EmpBankComponent'
+import EmpSuperComponent from './EmpSuperComponent'
+import EmpKinComponent from './EmpKinComponent';
 
 /**
 * @description renders the main grid and components that make up the employee menu
@@ -20,14 +22,19 @@ const EmpContainer =  inject('store')(observer((props) => {
         <Grid container spacing={8}  >
             <Grid item xs={12} >
                 <MainToolbar
-                    new={(e) => employeeStore.newE()}
-                    save={(e) => employeeStore.save()}
-                    prev={(e) => employeeStore.prev()}
-                    next={(e) => employeeStore.next()}
+                    // newX={(e) => employeeStore.newE()}
+                    // save={(e) => employeeStore.save()}
+                    // prev={(e) => employeeStore.prev()}
+                    // next={(e) => employeeStore.next()}
+                    submit= {(e) => employeeStore.submit()}
                 />
             </Grid>
 
             <Grid item xs={12} sm={6} lg={4}><EmpDetailsComponent /></Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+                <EmpKinComponent />
+                <EmpSuperComponent />
+            </Grid>
             <Grid item xs={12} sm={6} lg={4}><EmpBankComponent /></Grid>
         </Grid>
     )

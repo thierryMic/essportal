@@ -15,14 +15,16 @@ import Iconer from '../../utils/Iconer'
 * @description new, save and delete
 */
 const MainToolbar = (props) => {
+    const { newx, save, clear, prev, next, search, submit } = props
     return (
         <Toolbar disableGutters>
-            <Button size='small' onClick={props.new}> <Iconer name='plus' color='primary'/></Button>
-            <Button size='small' onClick={props.save}><Iconer name='save' color='primary'/></Button>
-            <Button size='small' ><Iconer name='clear' color='primary'/></Button>
-            <Button size='small' onClick={props.prev}><Iconer name='prev' color='primary'/></Button>
-            <Button size='small' onClick={props.next}><Iconer name='next' color='primary'/></Button>
-            <Button size='small' ><Iconer name='search' color='primary'/></Button>
+            {newx && <Button size='small' onClick={newx}> <Iconer name='plus' color='primary'/></Button>}
+            {save && <Button size='small' onClick={save}><Iconer name='save' color='primary'/></Button>}
+            {clear && <Button size='small' ><Iconer name='clear' color='primary'/></Button>}
+            {prev && <Button size='small' onClick={prev}><Iconer name='prev' color='primary'/></Button>}
+            {next && <Button size='small' onClick={next}><Iconer name='next' color='primary'/></Button>}
+            {search && <Button size='small' ><Iconer name='search' color='primary'/></Button>}
+            {submit && <Button variant="contained" color="secondary" >Submit</Button>}
         </Toolbar>
     )
 }

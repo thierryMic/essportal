@@ -21,9 +21,8 @@ export const apiSaveEmployee = (employee) => {
                         },
                     method:"POST",
                     body: JSON.stringify(employee),
-                    // body: employee
                 })
                 .then(response => response.json())
-                .catch(e => {console.log(e)})
+                .catch((e) => {throw 'Unable to save record'})
 
 }

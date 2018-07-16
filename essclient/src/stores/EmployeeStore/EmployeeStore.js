@@ -13,11 +13,11 @@ class EmployeeStore  {
 
 
     getEmployee = (id) => {
-        return this.employees.filter( e => e.id === id )[0]
+        return this.employees.find( e => e.id === id)
     }
 
-    getEmployeeIndex = (id) => {
-        return this.employees.findIndex( e => e.id === id )
+    setEmployee = (employee) => {
+        this.employee = {...employee}
     }
 
     newE () {
@@ -26,10 +26,15 @@ class EmployeeStore  {
 
     save () {
         apiSaveEmployee(this.employee).then((json) => {
-            let index = this.getEmployeeIndex(json.id)
-            index === -1 ? this.employees.push(json) : this.employees.splice(index, 1, json)
-            this.employee.id = json.id
-        })
+            let employee = this.employees.find( e => e.id === json.id)
+            if (employee) {
+                employee.update(json)
+            } else {
+                employee = new Employee(json)
+                this.employees.push(employee)
+            }
+            this.setEmployee(employee)
+        }).catch()
     }
 
     next () {
@@ -48,9 +53,12 @@ class EmployeeStore  {
 
     fetchEmployees () {
         apiFetchEmployees()
-        .then(e => (e && (this.employees = e.data)))
-        .then(() => this.employee = {...this.employees[this.index]})
+        .then(e => (e.data.length > 0 && (this.employees = e.data.map(json => new Employee(json)))))
+        .then(() => this.setEmployee(this.employees[0]))
     }
+
+
+
 }
 
 decorate(EmployeeStore, {
