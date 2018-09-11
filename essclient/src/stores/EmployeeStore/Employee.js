@@ -19,6 +19,7 @@ class Employee  {
         this.superNo = json.superNo || ''
         this.bsb = json.bsb || ''
         this.accountNo = json.accountNo || ''
+        console.log(this)
     }
 
     get name() {

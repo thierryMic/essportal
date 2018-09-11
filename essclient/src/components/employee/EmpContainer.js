@@ -2,6 +2,8 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 
+//auth
+import securePage from "../../auth/securePage"
 
 //material ui
 import Grid from '@material-ui/core/Grid'
@@ -26,7 +28,7 @@ const EmpContainer =  inject('store')(observer((props) => {
                     // save={(e) => employeeStore.save()}
                     // prev={(e) => employeeStore.prev()}
                     // next={(e) => employeeStore.next()}
-                    submit= {(e) => employeeStore.submit()}
+                    submit= {(e) => employeeStore.save()}
                 />
             </Grid>
 
@@ -40,5 +42,4 @@ const EmpContainer =  inject('store')(observer((props) => {
     )
 }))
 
-export default EmpContainer
-
+export default securePage(EmpContainer)

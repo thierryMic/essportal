@@ -1,5 +1,5 @@
 from google.appengine.ext import ndb
-
+import logging
 
 class Employee(ndb.Model):
     firstName = ndb.StringProperty()
@@ -27,13 +27,11 @@ class Employee(ndb.Model):
 
     @staticmethod
     def save(details):
-
-        if details['id'] == '<New>':
-            eId = details['firstName'][0].upper() + details['lastName'][0].upper() + '001'
-            e = Employee(key = ndb.Key(Employee, eId))
-        else:
-            e = Employee.get_by_id(details['id'])
-
+        email = details['email']
+        print email
+        e = Employee.get_by_id(details['email'])
+        if e is None:
+            e = Employee(id=email)
 
         e.firstName = details['firstName']
         e.middleName = details['middleName']
@@ -72,3 +70,11 @@ class Employee(ndb.Model):
             )
         else:
             return Employee.get_by_id(details['id'])
+
+
+    @staticmethod
+    def getEmployee (email):
+        print(email)
+        e = Employee.get_by_id('essportal8@gmail.com')
+        return e.serialize
+

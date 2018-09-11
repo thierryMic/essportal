@@ -1,6 +1,6 @@
 import { decorate, observable, computed, action } from 'mobx'
 import Employee from './Employee'
-import { apiFetchEmployees, apiSaveEmployee } from '../Api'
+import { apiFetchEmployee, apiSaveEmployee } from '../Api'
 
 class EmployeeStore  {
 
@@ -25,6 +25,7 @@ class EmployeeStore  {
     }
 
     save () {
+        console.log("saving aspi")
         apiSaveEmployee(this.employee).then((json) => {
             let employee = this.employees.find( e => e.id === json.id)
             if (employee) {
@@ -51,12 +52,23 @@ class EmployeeStore  {
         }
     }
 
-    fetchEmployees () {
-        apiFetchEmployees()
-        .then(e => (e.data.length > 0 && (this.employees = e.data.map(json => new Employee(json)))))
-        .then(() => this.setEmployee(this.employees[0]))
-    }
+    // fetchEmployees () {
+    //     apiFetchEmployees()
+    //     .then(e => (e.data.length > 0 && (this.employees = e.data.map(json => new Employee(json)))))
+    //     .then(() => this.setEmployee(this.employees[0]))
+    //     .catch(e => {console.log(e)})
+    // }
 
+    fetchEmployee () {
+        apiFetchEmployee()
+        .then(e => (e.data.length > 0 && (this.employees = e.data.map(json => new Employee(json)))))
+        .then(() => {
+            this.setEmployee(this.employees[0])
+            console.log(this.employees[0])
+        })
+        .catch(e => {console.log(e)})
+
+    }
 
 
 }
@@ -67,8 +79,8 @@ decorate(EmployeeStore, {
     save: action,
     next: action,
     prev: action,
-    fetchEmployees: action,
-
+    // fetchEmployees: action,
+    fetchEmployee: action,
 })
 
 

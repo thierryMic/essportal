@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,10 +13,15 @@ import SidebarItem from './SidebarItem'
 import EmpContainer from '../employee/EmpContainer'
 import TimeSheetContainer from '../timesheet/TimeSheetContainer'
 import RosterContainer from '../roster/RosterContainer'
+import SignIn from '../auth/signin'
+import SignedIn from '../auth/signed-in'
+import SignOut from '../auth/signout'
+
 
 
 const drawerWidthOpen = '10em'
 const drawerWidthClosed = '3.1em'
+const signoutWidth = '8em'
 
 const styles = (theme, props) => ({
     root: {
@@ -29,6 +35,7 @@ const styles = (theme, props) => ({
 
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
+        flexDirection: 'row',
     },
 
     menuButton: {
@@ -55,6 +62,11 @@ const styles = (theme, props) => ({
 
     toolbar: {
         ...theme.mixins.toolbar,
+        width: 'calc(100% - ' + signoutWidth + ')'
+    },
+
+    signout: {
+        width: signoutWidth,
     },
 
     content: {
@@ -105,6 +117,9 @@ class App extends React.Component {
             case '/': return <EmpContainer />
             case '/employee': return <EmpContainer />
             case '/roster': return <RosterContainer />
+            case '/signin': return <SignIn />
+            case '/auth/signed-in': return <SignedIn />
+            case '/auth/signout': return <SignOut />
         }
     }
 
@@ -116,16 +131,22 @@ class App extends React.Component {
         <div className={classes.root}>
             {/* Title bar */}
             <AppBar className={classNames(classes.appBar)}>
-                <Toolbar disableGutters>
+                <Toolbar className={classNames(classes.toolbar)}disableGutters>
                     <IconButton
-                    color="secondary"
-                    onClick={this.state.open ? this.handleDrawerClose : this.handleDrawerOpen}
-                    className={classNames(classes.menuButton)}
+                        color="secondary"
+                        onClick={this.state.open ? this.handleDrawerClose : this.handleDrawerOpen}
+                        className={classNames(classes.menuButton)}
                     >
                         <Iconer name='menu' color='secondary' />
                     </IconButton>
                     <Typography variant="title" color="inherit" noWrap>Employee portal</Typography>
-            </Toolbar>
+                </Toolbar>
+                <Button
+                    className={classNames(classes.signout)}
+                    color='secondary'
+                    onClick={() => uiStore.showSignOut()}
+                    >Sign out
+                </Button>
             </AppBar>
 
             {/* Sidebar */}

@@ -17,11 +17,19 @@ class UIStore {
 
     showEmployee() {
         this.setView ('/employee')
-        this.rootStore.employeeStore.fetchEmployees()
+        this.rootStore.employeeStore.fetchEmployee(localStorage.getItem("loggeduser"))
     }
 
     showRoster() {
         this.setView ('/roster')
+    }
+
+    showSignedIn() {
+        this.setView ('/auth/signed-in')
+    }
+
+    showSignOut() {
+        this.setView ('/auth/signout')
     }
 }
 
@@ -30,6 +38,8 @@ decorate (UIStore, {
     activeViewId: observable,
     showEmployee: action,
     showRoster: action,
+    showSignedIn: action,
+    showSignOut: action,
 })
 
 export default UIStore
